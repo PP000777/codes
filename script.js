@@ -5,17 +5,9 @@ const PORT = 8000
 
 
 const server = http.createServer((req, res) => {
-    let valor = req.url.replace('/', '').replace('?', '').split('&')
-    let parametros = {}
-    let resultado = soma(5, 10)
-    
-    
-    for (item in valor) {
-        let chaveValor = valor[item].split('=')
-        parametros[chaveValor[0]] = Number(chaveValor[1])
-    }
-
-   
+    const urlCapturada = url.parse(req.url, true)
+    const {query} = urlCapturada
+    let resultado = soma(Number(query.a), Number(query.b))
     res.end(`O valor final é ${resultado}`) 
 })
 
