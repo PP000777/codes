@@ -1,33 +1,25 @@
-const http = require('http')
-const url = require('url') 
-const { soma, subtracao, multiplicacao, divisao } = require('./teste')
+const express = require('express');
+const { soma, subtracao, multiplicacao, divisao } = require('./teste');
+const server = express();
+const PORT = 8000;
 
-const PORT = 8000
+server.get('/soma', (req, res) => {
+    res.send('Aqui vai o resultado da minha soma');
+}); 
 
-const server = http.createServer((req, res) => {
-    const urlCapturada = url.parse(req.url, true)
-    console.log(urlCapturada)
+server.get('/subtracao',(req, res) => {
+    res.send('Aqui vai o resultado da minha subtracao');
+});
 
-    const { query, pathname } = urlCapturada
-    let resultado = 0
+server.get('/divisao',(req, res) => {
+    res.send('Aqui vai o resultado da minha divisao');
+});
 
-    if (pathname === '/soma') {
-        resultado = soma(Number(query.a), Number(query.b))
-    } else if (pathname === '/subtracao') {
-        resultado = subtracao(Number(query.a), Number(query.b))
-    } else if (pathname === '/divisao') { 
-        resultado = divisao(Number(query.a), Number(query.b))
-    } else if (pathname === '/multiplicacao') { 
-        resultado = multiplicacao(Number(query.a), Number(query.b))
-    } else {
-        res.statusCode = 404
-        res.end("Página não encontrada")
-        return
-    }
+server.get('/multiplicacao',(req, res) => {
+    res.send('Aqui vai o resultado da minha multiplicacao');
+});
 
-    res.end(`O valor final é ${resultado}`)
-})
 
 server.listen(PORT, () => {
-    console.log(`O servidor foi inicializado na porta ${PORT}`)
-})
+    console.log(`O servidor foi inicializado na porta ${PORT}`);
+});
